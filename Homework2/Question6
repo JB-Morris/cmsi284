@@ -1,0 +1,46 @@
+		JUMP Start
+value1: IN Ox100
+value2: IN 0x100
+bigger: 0
+smaller: 0
+switch: 0
+start: LOAD value1  
+		SUB value2
+		JGZ v1b
+		LOAD bigger
+		ADD value2
+		STORE bigger
+		LOAD smaller
+		ADD value1
+		STORE smaller
+		JUMP gcd
+v1b:	LOAD bigger
+		ADD value1
+		STORE bigger
+		LOAD smaller
+		ADD value2
+		STORE smaller
+gcd:    LOAD switch ; load the placeholder value
+		SUB switch ; zero it out
+		ADD smaller ; make the placeholder the smaller value
+		STORE switch ; store placeholder for smaller value
+		LOAD smaller ; load the smaller value
+		SUB smaller ; zero it out
+		ADD bigger ; add the bigger value
+		MOD smaller ; mod the bigger value by the smaller value
+		STORE smaller ; store new smaller value
+		LOAD bigger ; load the bigger value
+		SUB bigger ; zero it out
+		ADD switch ; make the bigger value the older smaller value
+		STORE bigger ; store the altered bigger value
+		LOAD smaller ; load smaller value
+		JZ return ; if the smaller value is 0, return the value
+		JUMP gcd ; loop the GCD algorithm
+return: LOAD bigger ; load the final bigger value
+		OUT Ox200 ; save GCD to address Ox200
+end:    JUMP end
+
+
+
+
+		

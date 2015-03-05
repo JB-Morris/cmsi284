@@ -1,0 +1,17 @@
+; number 7
+
+x:      0
+y:      0
+		STORE x
+		LOAD 0x222A
+		STORE y
+		LOAD x
+		STORE Ox222A
+		LOAD y
+
+
+; number 8
+		JGZ 0x837BBE1
+
+
+		
