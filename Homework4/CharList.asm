@@ -2,27 +2,34 @@ global main
 
 extern puts
 
-section.text
+
+section .text
+
 
 main:
-        mov    rax, arr
-        mov    dl, Ox0020
+        mov    rbx, arr
+        mov    dl, 32
         
 list_builder:
-        mov byte   [rax], dl
+        mov byte   [rbx], dl
         inc        dl
-        inc        rax
-        cmp        dl, Ox007E
+        inc        rbx
+
+        cmp        dl, 127
         je         end
-        and        dl, 15
-        jnz        arr
-        mov byte  [rax], 10
-        inc        rax
+	mov	   al, dl
+	and	   al, 15
+        jnz        list_builder
+        mov byte  [ebx], 10
+        inc        rbx
         jmp        list_builder
 end:
-        mov byte   [rax], 0
+        mov byte   [rbx], 0
         mov        rdi, arr
         call       puts
         ret
+
+section .bss
+
 arr:
-    resb 
+    resb 101
